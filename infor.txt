@@ -1,0 +1,58 @@
+Aritra and Chetna - Describe ML Model and ipynb file 
+Soumik - Describe Backend, API and Testing
+Sourin - Describe Fronend
+
+Aritra, Soumik, Chetna - Canva Presentation
+
+
+------------------------------------------Testing-------------------------------------------------------
+
+3rd march final submission
+next lab information update
+add weekdays name in prediction
+
+
+
+
+try:
+                # Get location info
+                address, latitude, longitude = get_map(prediction)
+                st.success('Address: ' + address)
+
+                # Display latitude and longitude
+                loc_dict = {'Latitude': latitude, 'Longitude': longitude}
+                st.subheader('✅ **Latitude & Longitude of ' + prediction + '**')
+                st.json(loc_dict)
+
+                # Display the location on the map
+                data = [[latitude, longitude]]
+                df = pd.DataFrame(data, columns=['lat', 'lon'])
+                st.subheader('✅ **' + prediction + ' on the Map**' + '🗺️')
+                st.map(df)
+
+            except Exception as e:
+                st.warning("No address found!! or Geocode of the location is private")
+
+
+
+def get_location(place):
+    geolocator = Nominatim(user_agent="Your_Name")
+    location = geolocator.geocode(place)
+    if location:
+        return location.latitude, location.longitude
+    else:
+        return None, None
+
+
+# Get location input from user
+    place = st.text_input(label="Place", placeholder="Enter A City...")
+
+    # Display map if location is provided
+    if place:
+        latitude, longitude = get_location(place)
+        if latitude is not None and longitude is not None:
+            # Create DataFrame with location data
+            df_location = pd.DataFrame({"LAT": [latitude], "LON": [longitude]})
+            # Display map
+            st.map(df_location, zoom=10)
+
